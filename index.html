@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Suryadeepta Paul — Portfolio</title>
+  <meta name="description" content="Suryadeepta Paul — Front-end developer. Clean, minimal resume-style portfolio." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #ffffff;
+      --muted: #6b7280;
+      --accent: #0f1724;
+      --accent-2: #0ea5a4;
+      --card: #f8fafc;
+      --glass: rgba(15,23,36,0.04);
+      --shadow: 0 8px 30px rgba(15,23,36,0.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--accent);background:var(--bg);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    a{color:inherit}
+
+    .wrap{max-width:900px;margin:48px auto;padding:32px;background:linear-gradient(180deg, #ffffff, #fbfdff);border-radius:12px;box-shadow:var(--shadow)}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;gap:14px;align-items:center}
+    .avatar{width:76px;height:76px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px}
+    .name{line-height:1}
+    .name h1{margin:0;font-size:20px;letter-spacing:-0.3px}
+    .name p{margin:2px 0 0;color:var(--muted);font-size:13px}
+
+    nav.topnav{display:flex;gap:10px}
+    .chip{padding:8px 12px;border-radius:999px;background:var(--glass);font-size:13px;color:var(--muted);border:1px solid rgba(15,23,36,0.04)}
+
+    main{display:grid;grid-template-columns:1fr 300px;gap:28px;margin-top:26px}
+
+    /* left column */
+    .card{background:transparent;border-radius:10px}
+    .hero-card{padding:18px;border-radius:10px;border:1px solid rgba(15,23,36,0.04);background:linear-gradient(180deg, #fff, #fcfeff)}
+    .intro{color:var(--muted);line-height:1.6;margin-top:12px}
+    .cta-row{display:flex;gap:10px;margin-top:16px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid rgba(15,23,36,0.06);background:#fff;font-weight:600;cursor:pointer}
+    .btn.primary{background:var(--accent);color:white;border:none}
+    .btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--glass)}
+
+    h2.section{font-size:16px;margin:18px 0 12px;color:var(--accent)}
+
+    .skills{display:flex;flex-wrap:wrap;gap:10px}
+    .skill-pill{padding:8px 10px;background:#f7fafb;border-radius:10px;border:1px solid rgba(15,23,36,0.03);font-size:13px;color:var(--accent)}
+
+    .timeline{display:flex;flex-direction:column;gap:12px}
+    .item{padding:12px;border-radius:10px;border:1px solid rgba(15,23,36,0.04);background:#fff}
+    .item h3{margin:0;font-size:14px}
+    .item p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
+
+    /* right column */
+    aside{position:relative}
+    .side-card{position:sticky;top:24px;padding:16px;border-radius:10px;border:1px solid rgba(15,23,36,0.04);background:#fff}
+    .side-card h4{margin:0;font-size:13px;color:var(--accent)}
+    .contact-list{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+    .contact-list a{font-size:14px;color:var(--accent);text-decoration:none}
+    .muted{color:var(--muted);font-size:13px}
+
+    footer{margin-top:26px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* print friendly */
+    @media print{
+      body{background:white}
+      .wrap{box-shadow:none;border:none}
+      nav.topnav{display:none}
+      .btn{display:none}
+    }
+
+    /* responsive */
+    @media (max-width:880px){main{grid-template-columns:1fr}aside{position:static}.side-card{position:static}}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="document">
+    <header>
+      <div class="brand" aria-hidden="false">
+        <div class="avatar">SP</div>
+        <div class="name">
+          <h1>Suryadeepta Paul</h1>
+          <p>Front-end Developer — Scottish Church College</p>
+        </div>
+      </div>
+      <nav class="topnav" aria-label="Quick links">
+        <a class="chip" href="#about">About</a>
+        <a class="chip" href="#projects">Projects</a>
+        <a class="chip" href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section aria-labelledby="about">
+        <div class="hero-card">
+          <h2 id="about">About</h2>
+          <p class="intro">I'm a Computer Science student focused on front-end development. I build clean, accessible interfaces and enjoy turning complex problems into simple, elegant user experiences. I have experience with HTML, CSS, JavaScript and a strong foundation in programming languages like C and Python.</p>
+
+          <div class="cta-row">
+            <button class="btn primary" onclick="window.print()" aria-label="Download CV">Download CV</button>
+            <a class="btn ghost" href="#contact">Contact</a>
+          </div>
+
+          <h2 class="section">Core Skills</h2>
+          <div class="skills" aria-hidden="false">
+            <div class="skill-pill">HTML</div>
+            <div class="skill-pill">CSS</div>
+            <div class="skill-pill">JavaScript</div>
+            <div class="skill-pill">Responsive Design</div>
+            <div class="skill-pill">C</div>
+            <div class="skill-pill">Python</div>
+          </div>
+        </div>
+
+        <h2 class="section">Experience & Projects</h2>
+        <div class="timeline">
+          <article class="item">
+            <h3>Front-end Development — Personal Projects</h3>
+            <p class="muted">Built multiple responsive websites and small web apps focusing on accessibility and performance.</p>
+          </article>
+
+          <article class="item">
+            <h3>Problem Solving</h3>
+            <p class="muted">Competitive coding and algorithmic practice — strong foundation in data structures and algorithms.</p>
+          </article>
+        </div>
+
+        <h2 class="section">Education</h2>
+        <div class="timeline">
+          <article class="item">
+            <h3>Graduation</h3>
+            <p class="muted">Scottish Church College — University of Calcutta</p>
+          </article>
+
+          <article class="item">
+            <h3>Class XII</h3>
+            <p class="muted">Falakata High School (H.S.) — 90 (WBCHSE)</p>
+          </article>
+
+          <article class="item">
+            <h3>Class X</h3>
+            <p class="muted">Falakata High School (H.S.) — 93 (WBBSE)</p>
+          </article>
+        </div>
+      </section>
+
+      <aside>
+        <div class="side-card" id="contact">
+          <h4>Contact</h4>
+          <div class="contact-list">
+            <a href="mailto:suryadeeptapaul123@gmail.com">suryadeeptapaul123@gmail.com</a>
+            <a href="https://www.instagram.com/suryadeeptapaul/" target="_blank" rel="noopener">@suryadeeptapaul (Instagram)</a>
+            <a href="https://www.linkedin.com/in/suryadeepta-paul-a87b02365/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/suryadeepta" target="_blank" rel="noopener">github.com/suryadeepta</a>
+          </div>
+
+          <h4 style="margin-top:14px">Quick Info</h4>
+          <p class="muted" style="margin:8px 0 0">Class X — 93 (WBBSE)<br>Class XII — 90 (WBCHSE)</p>
+
+          <div style="margin-top:14px;display:flex;gap:8px">
+            <a class="btn" href="#" onclick="alert('Replace this link with your CV file or external URL')">View CV</a>
+            <a class="btn" href="mailto:suryadeeptapaul123@gmail.com">Email</a>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      © Suryadeepta Paul — Built with HTML & CSS
+    </footer>
+  </div>
+
+  <script>
+    // small enhancement: accessible focus outline for keyboard users
+    (function(){
+      const handleFirstTab = (e) => {
+        if (e.key === 'Tab') {
+          document.documentElement.classList.add('user-is-tabbing');
+          window.removeEventListener('keydown', handleFirstTab);
+        }
+      };
+      window.addEventListener('keydown', handleFirstTab);
+    })();
+  </script>
+</body>
+</html>
