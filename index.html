@@ -7,26 +7,157 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
   :root {
     --bg: #0a0a0a;
     --fg: #f0ece4;
     --muted: #888;
     --border: rgba(255,255,255,0.08);
+    --dot-color: rgba(255,255,255,0.13);
+    --dot-size: 1.5px;
+    --dot-gap: 28px;
+    --glow-a: rgba(180,100,255,0.07);
+    --glow-b: rgba(80,180,255,0.05);
+    --glow-c: rgba(255,120,80,0.04);
   }
+
+  @media (prefers-color-scheme: light) {
+    :root:not(.dark) {
+      --bg: #f5f2ed;
+      --fg: #111;
+      --muted: #777;
+      --border: rgba(0,0,0,0.08);
+      --dot-color: rgba(0,0,0,0.12);
+      --glow-a: rgba(140,60,255,0.06);
+      --glow-b: rgba(40,140,255,0.04);
+      --glow-c: rgba(255,100,60,0.04);
+    }
+  }
+
+  /* Manually toggled light */
+  html.light :root, html.light body, :root.light {
+    --bg: #f5f2ed;
+    --fg: #111;
+    --muted: #777;
+    --border: rgba(0,0,0,0.08);
+    --dot-color: rgba(203, 64, 4, 0.977);
+    --glow-a: rgba(140,60,255,0.06);
+    --glow-b: rgba(40,140,255,0.04);
+    --glow-c: rgba(255,100,60,0.04);
+  }
+  html.light {
+    --bg: #f5f2ed;
+    --fg: #111;
+    --muted: #f0f0f0;
+    --border: rgba(0,0,0,0.08);
+    --dot-color: rgba(0,0,0,0.52);
+    --glow-a: rgba(140,60,255,0.06);
+    --glow-b: rgba(40,140,255,0.04);
+    --glow-c: rgba(255,100,60,0.04);
+  }
+  /* Manually toggled dark (overrides system light) */
+  html.dark {
+    --bg: #0a0a0a;
+    --fg: #f0ece4;
+    --muted: #888;
+    --border: rgba(255,255,255,0.08);
+    --dot-color: rgba(255,255,255,0.13);
+    --glow-a: rgba(130, 7, 245, 0.07);
+    --glow-b: rgba(80,180,255,0.05);
+    --glow-c: rgba(250, 58, 0, 0.04);
+  }
+
   html { font-size: 16px; scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--fg); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* Dot grid via radial-gradient */
+    background-image:
+      radial-gradient(ellipse 55% 45% at 18% 30%, var(--glow-a) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 80% 65%, var(--glow-b) 0%, transparent 65%),
+      radial-gradient(ellipse 35% 40% at 55% 10%, var(--glow-c) 0%, transparent 60%),
+      radial-gradient(circle var(--dot-size) at 0 0, var(--dot-color) 100%, transparent 100%);
+    background-size:
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      var(--dot-gap) var(--dot-gap);
+    background-attachment: fixed;
+  }
+
+  /* Subtle animated glow orbs layered on top of the dot grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 600px 500px at 15% 25%, var(--glow-a) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 600px at 82% 70%, var(--glow-b) 0%, transparent 65%),
+      radial-gradient(ellipse 400px 400px at 60% 5%,  var(--glow-c) 0%, transparent 60%);
+    animation: glowDrift 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes glowDrift {
+    0%   { transform: translate(0,0) scale(1); }
+    33%  { transform: translate(20px,-15px) scale(1.03); }
+    66%  { transform: translate(-15px,20px) scale(0.97); }
+    100% { transform: translate(10px,10px) scale(1.02); }
+  }
+
+  /* Everything inside body needs z-index above the ::before pseudo */
+  nav, section, footer, hr { position: relative; z-index: 1; }
+
+  /* ── THEME TOGGLE ── */
+  .theme-toggle {
+    width: 44px; height: 24px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--fg) 8%, transparent);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.3s, border-color 0.3s;
+    outline: none;
+  }
+  .theme-toggle:hover { background: color-mix(in srgb, var(--fg) 16%, transparent); }
+
+  .toggle-thumb {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--fg);
+    position: absolute;
+    top: 50%; left: 4px;
+    transform: translateY(-50%);
+    transition: left 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+  }
+
+  html.light .toggle-thumb { left: 22px; }
+
+  .toggle-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 8px; transition: opacity 0.2s; line-height: 1; }
+  .toggle-icon-sun  { opacity: 0; }
+  .toggle-icon-moon { opacity: 1; }
+  html.light .toggle-icon-sun  { opacity: 1; }
+  html.light .toggle-icon-moon { opacity: 0; }
 
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 20px 40px;
-    background: rgba(10,10,10,0.85); backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
   }
-  .nav-left { font-size: 0.78rem; letter-spacing: 0.12em; color: #ff5900; text-transform: uppercase; }
+  .nav-left { font-size: 0.78rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
   .nav-center { font-family: 'Playfair Display', serif; font-size: 0.95rem; letter-spacing: 0.04em; }
   .nav-right { display: flex; gap: 28px; }
-  .nav-right a { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ff5900; text-decoration: none; transition: color 0.2s; }
+  .nav-right a { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .nav-right a:hover { color: var(--fg); }
 
   .hero {
@@ -39,13 +170,13 @@
     display: flex; flex-direction: column; justify-content: center;
     position: relative; z-index: 2;
   }
-  .hero-subtitle { font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase; color: #ff5900; margin-bottom: 16px; font-weight: 400; }
+  .hero-subtitle { font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; font-weight: 400; }
   .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(4rem, 8vw, 7rem); font-weight: 900; line-height: 0.93; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 48px; }
   .hero-meta { display: flex; flex-direction: column; gap: 4px; }
   .meta-row { display: flex; gap: 8px; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
   .meta-label { color: var(--muted); }
   .meta-value { color: var(--fg); }
-  .hero-body { font-size: 0.8rem; color: #ff5900; line-height: 1.7; max-width: 300px; margin-top: 20px; }
+  .hero-body { font-size: 0.8rem; color: var(--muted); line-height: 1.7; max-width: 300px; margin-top: 20px; }
 
   .hero-right { height: 100vh; position: relative; overflow: hidden; }
   .hero-image-wrap {
@@ -53,8 +184,8 @@
     display: flex; align-items: center; justify-content: center;
   }
   .hero-image-wrap img {
-    width: 88%; height: 95%;
-    object-fit:contain; object-position: center top;
+    width: 88%; height: 85%;
+    object-fit: cover; object-position: center top;
     display: block;
   }
 
@@ -92,7 +223,7 @@
   .about { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); }
   .about-left { padding: 80px; border-right: 1px solid var(--border); }
   .about-right { padding: 80px; }
-  .about-heading { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 4vw, 3.5rem); color:#ff5900; font-weight: 900; line-height: 1.05; margin-bottom: 32px; }
+  .about-heading { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 900; line-height: 1.05; margin-bottom: 32px; }
   .about-text { font-size: 0.9rem; color: var(--muted); line-height: 1.8; max-width: 400px; }
   .skills-list { display: flex; flex-direction: column; }
   .skill-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
@@ -100,7 +231,7 @@
 
   .contact { border-top: 1px solid var(--border); padding: 100px 80px; display: flex; align-items: flex-end; justify-content: space-between; gap: 60px; }
   .contact-heading { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.02em; max-width: 600px; }
-  .contact-heading span { color:#ff5900; }
+  .contact-heading span { color: var(--muted); }
   .contact-links { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
   .contact-link { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .contact-link:hover { color: var(--fg); }
@@ -141,13 +272,19 @@
   <div class="nav-right">
     <a href="#works">About</a>
     <a href="#contact">Contact</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+      <span class="toggle-thumb">
+        <span class="toggle-icon toggle-icon-sun">☀</span>
+        <span class="toggle-icon toggle-icon-moon">☽</span>
+      </span>
+    </button>
   </div>
 </nav>
 
 <section class="hero">
   <div class="hero-left">
-    <p class="hero-subtitle">Suryadeepta Paul</p>
-    <h1 class="hero-title">SURYA</h1>
+    <p class="hero-subtitle">Subtitle</p>
+    <h1 class="hero-title">Title</h1>
     <div class="hero-meta">
       <div class="meta-row">
         <span class="meta-label">Category &mdash;</span>
@@ -164,7 +301,7 @@
   </div>
   <div class="hero-right">
     <div class="hero-image-wrap">
-      <img src="hero.png" alt="Hero Image">
+      <img src="hero.png">
     </div>
   </div>
 </section>
@@ -225,5 +362,22 @@
   <span>Design &amp; Development</span>
 </footer>
 
+<script>
+  const html = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+
+  // Init from localStorage or system preference
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = saved ? saved === 'dark' : prefersDark;
+  html.classList.add(isDark ? 'dark' : 'light');
+
+  btn.addEventListener('click', () => {
+    const goLight = html.classList.contains('dark');
+    html.classList.toggle('dark', !goLight);
+    html.classList.toggle('light', goLight);
+    localStorage.setItem('theme', goLight ? 'light' : 'dark');
+  });
+</script>
 </body>
 </html>
