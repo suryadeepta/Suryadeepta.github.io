@@ -36,7 +36,7 @@
 
   /* Manually toggled light */
   html.light :root, html.light body, :root.light {
-    --bg: #f5f2ed;
+    --bg: #fff4bb;
     --fg: #111;
     --muted: #777;
     --border: rgba(0,0,0,0.08);
@@ -154,10 +154,10 @@
     background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
   }
-  .nav-left { font-size: 0.78rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+  .nav-left { font-size: 0.78rem; letter-spacing: 0.12em; color: #ff5900; text-transform: uppercase; }
   .nav-center { font-family: 'Playfair Display', serif; font-size: 0.95rem; letter-spacing: 0.04em; }
   .nav-right { display: flex; gap: 28px; }
-  .nav-right a { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-right a { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ff5900; text-decoration: none; transition: color 0.2s; }
   .nav-right a:hover { color: var(--fg); }
 
   .hero {
@@ -170,13 +170,13 @@
     display: flex; flex-direction: column; justify-content: center;
     position: relative; z-index: 2;
   }
-  .hero-subtitle { font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; font-weight: 400; }
+  .hero-subtitle { font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase; color: #ff5900; margin-bottom: 16px; font-weight: 400; }
   .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(4rem, 8vw, 7rem); font-weight: 900; line-height: 0.93; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 48px; }
   .hero-meta { display: flex; flex-direction: column; gap: 4px; }
   .meta-row { display: flex; gap: 8px; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
-  .meta-label { color: var(--muted); }
+  .meta-label { color: #ff5900; }
   .meta-value { color: var(--fg); }
-  .hero-body { font-size: 0.8rem; color: var(--muted); line-height: 1.7; max-width: 300px; margin-top: 20px; }
+  .hero-body { font-size: 0.8rem; color: var(--fg); line-height: 1.7; max-width: 300px; margin-top: 20px; }
 
   .hero-right { height: 100vh; position: relative; overflow: hidden; }
   .hero-image-wrap {
@@ -231,7 +231,7 @@
 
   .contact { border-top: 1px solid var(--border); padding: 100px 80px; display: flex; align-items: flex-end; justify-content: space-between; gap: 60px; }
   .contact-heading { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.02em; max-width: 600px; }
-  .contact-heading span { color: var(--muted); }
+  .contact-heading span { color: #ff5900; }
   .contact-links { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
   .contact-link { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .contact-link:hover { color: var(--fg); }
@@ -351,9 +351,9 @@
   <h2 class="contact-heading">Let&rsquo;s work<br><span>together.</span></h2>
   <div class="contact-links">
     <a href="mailto:hello@portfolio.com" class="contact-link">hello@portfolio.com</a>
-    <a href="#" class="contact-link">Instagram</a>
-    <a href="#" class="contact-link">LinkedIn</a>
-    <a href="#" class="contact-link">Behance</a>
+    <a href="https://www.instagram.com/suryadeeptapaul/" class="contact-link">Instagram</a>
+    <a href="https://www.linkedin.com/in/suryadeepta-paul-a87b02365/" class="contact-link">LinkedIn</a>
+    <a href="https://github.com/suryadeepta" class="contact-link">GitHub</a>
   </div>
 </section>
 
